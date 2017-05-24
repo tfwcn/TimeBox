@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.time_box.ppht.timebox">
+
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 开机启动 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/timebox"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/timebox"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".TaskActivity"
+            android:label="任务设置"
+            android:parentActivityName=".MainActivity">
+            <!-- 用于4.0以下定义父窗口 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".TimeActivity"
+            android:label="选择时间"
+            android:parentActivityName=".TaskActivity">>
+            <!-- 用于4.0以下定义父窗口 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".TaskActivity" />
+        </activity>
+
+        <service
+            android:name=".Service.NotificationAudioService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <!-- 开机启动 -->
+        <receiver
+            android:name=".Broadcast.HoldBroadcastReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
